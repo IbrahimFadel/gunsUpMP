@@ -14,7 +14,6 @@ import SimplePhysicsEngine from 'lance/physics/SimplePhysicsEngine';
 import PlayerAvatar from './PlayerAvatar';
 
 export default class MyGameEngine extends GameEngine {
-
     constructor(options) {
         super(options);
         this.physicsEngine = new SimplePhysicsEngine({ gameEngine: this });
@@ -54,13 +53,13 @@ export default class MyGameEngine extends GameEngine {
             return;
 
         // CHECK LEFT EDGE:
-        if (this.ball.position.x <= PADDING + PADDLE_WIDTH &&
+        if (this.ball.position.x >= WIDTH + PADDING + PADDLE_WIDTH &&
             this.ball.position.y >= this.paddle1.y && this.ball.position.y <= this.paddle1.position.y + PADDLE_HEIGHT &&
             this.ball.velocity.x < 0) {
 
             // ball moving left hit player 1 paddle
             this.ball.velocity.x *= -1;
-            this.ball.position.x = PADDING + PADDLE_WIDTH + 1;
+            this.ball.position.x = this.paddle1.x + PADDLE_WIDTH;
         } else if (this.ball.position.x <= 0) {
 
             // ball hit left wall
@@ -94,7 +93,6 @@ export default class MyGameEngine extends GameEngine {
             this.ball.position.y = HEIGHT - 1;
             this.ball.velocity.y *= -1;
         }
-
     }
 
     processInput(inputData, playerId) {
@@ -108,6 +106,10 @@ export default class MyGameEngine extends GameEngine {
                 playerPaddle.position.y -= 5;
             } else if (inputData.input === 'down') {
                 playerPaddle.position.y += 5;
+            } else if (inputData.input === 'left') {
+                playerPaddle.position.x -= 5;
+            } else if (inputData.input === 'right') {
+                playerPaddle.position.x += 5;
             }
         }
     }

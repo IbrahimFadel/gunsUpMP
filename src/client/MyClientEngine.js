@@ -10,5 +10,7 @@ export default class MyClientEngine extends ClientEngine {
         this.controls = new KeyboardControls(this);
         this.controls.bindKey('up', 'up', { repeat: true } );
         this.controls.bindKey('down', 'down', { repeat: true } );
+        this.controls.bindKey('left', 'left', { repeat: true } );
+        this.controls.bindKey('right', 'right', { repeat: true } );
     }
 }
